@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //싱글톤
 
     public bool isGameover = false;
+    public Text lifeText;
     public Text scoreText;
     public GameObject gameoverUI;
 
     private int score = 0;
+    private int life;
+
+    public GameObject MenuPanel;
 
     private void Awake()
     {
@@ -51,9 +55,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PlayerLife(int newLife)
+    {
+        if (!isGameover)
+        {
+            life = newLife;
+            lifeText.text = life.ToString();
+        }
+    }
+
     public void OnPlayerDead()
     {
         isGameover = true;
         gameoverUI.SetActive(true);
+    }
+
+    public void ClickeMenuButton()
+    {
+        MenuPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ClickeMenuPanel()
+    {
+        MenuPanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void ClickRestart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
+    }
+
+    public void ClickExit()
+    {
+        Application.Quit();
     }
 }

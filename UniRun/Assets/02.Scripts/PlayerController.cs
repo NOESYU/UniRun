@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 700f;
     
     private int jumpCount = 0;
+    private int playerLife = 3;
     private bool isGrounded = false;
     private bool isDead = false;
     private Rigidbody2D playerRb;
@@ -74,10 +75,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Dead" && !isDead)
+        if (collision.tag == "RealDead" && !isDead)
         {
             Die();
-        }   
+        }
+
+        else if (collision.tag == "Dead" && !isDead)
+        {
+            if (playerLife > 1)
+            {
+                playerLife--;
+                GameManager.instance.PlayerLife(playerLife);
+            }
+            else
+            {
+                playerLife--;
+                GameManager.instance.PlayerLife(playerLife);
+                Die();
+            }
+        }
+        
+        else if(collision.tag == "Coin" && !isDead)
+        {
+            GameManager.instance.AddScore(10);
+            collision.gameObject.SetActive(false);
+        }
     }
 
 }
