@@ -7,6 +7,8 @@ public class Platform : MonoBehaviour
     public GameObject[] obstacles;
     private bool stepped = false; //캐릭터가 밟은 발판이 첫 걸음인지 아닌지 판별
 
+    public GameObject[] coins;
+
     // OnEnable()
     // 컴포넌트가 활성화될 때마다 자동으로 한 번 실행되는 메소드
     // 컴포넌트를 비활성화하고 활성화할 때도 매번 실행된다.
@@ -25,6 +27,18 @@ public class Platform : MonoBehaviour
             else
             {
                 obstacles[i].SetActive(false);
+            }
+        }
+
+        for(int i = 0; i < coins.Length; i++)
+        {
+            if(Random.Range(0, 5) == 0) 
+            {
+                coins[i].SetActive(true);
+            }
+            else
+            {
+                coins[i].SetActive(false);
             }
         }
     }

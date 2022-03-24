@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead) return;
 
-        if (Input.GetMouseButtonDown(0) && jumpCount < 2)
+        if (Input.GetMouseButtonDown(0) && jumpCount < 10)
         {
             jumpCount++;
 
